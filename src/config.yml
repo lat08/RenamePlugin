@@ -2,7 +2,7 @@
 #Version 3.12.1+
 
 #DO NOT CHANGE THIS PLEASE
-config_version: 13
+config_version: 15
 
 #Plugin Prefix
 prefix: '&8[&bEpic&fRename&8] &f'
@@ -104,3 +104,62 @@ command_argument:
     
 'block_&x_color_codes': true
 convert_legacy_glowing_to_modern_glowing: true
+
+#Rename Token feature.
+#Players can drag the token onto an item in their inventory and trigger a confirm GUI -> chat input -> preview confirm flow.
+#Reuses /rename permissions, blacklists, character limit, formatting code limit and material permissions.
+token_rename:
+  enabled: true
+  consume_on_use: true
+  item:
+    material: NAME_TAG
+    display_name: '&6&lRename Token'
+    lore:
+      - '&7Drag onto an item to rename it.'
+      - '&7One-time use.'
+  blacklist_materials:
+    - 'BEDROCK'
+    - 'BARRIER'
+  add_renamed_lore: true
+  session_timeout_seconds: 60
+  gui:
+    title: '<shift:-8><glyph:confirmationgui><shift:-147><glyph:confirmation>'
+    size: 27
+    target_slot: 13
+    filler:
+      material: PAPER
+      custom_model_data: 1077
+      display_name: ' '
+    info:
+      slot: 4
+      material: PAPER
+      custom_model_data: 1077
+      display_name: '&e&lChceš pokračovat?'
+      lore: []
+    confirm:
+      slots: [10, 11, 12]
+      material: PAPER
+      custom_model_data: 1077
+      display_name: '&a&lPřijmout'
+      lore:
+        - '&cPoužít Přejmenovací Svitek!'
+        - '&fKlikni pro potvrzení operace.'
+    cancel:
+      slots: [14, 15, 16]
+      material: PAPER
+      custom_model_data: 1077
+      display_name: '&c&lOdmítnout'
+      lore:
+        - '&cZrušit použití svitku!'
+        - '&fKlikni pro zrušení operace.'
+    sounds:
+      confirm:
+        enabled: true
+        name: UI_BUTTON_CLICK
+        volume: 1.0
+        pitch: 2.0
+      cancel:
+        enabled: true
+        name: UI_BUTTON_CLICK
+        volume: 1.0
+        pitch: 0.5

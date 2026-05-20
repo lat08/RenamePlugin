@@ -58,6 +58,9 @@ commands:
   editlore:
     description: Takes the current lore from an item and suggests a /lore command that would give the same output. This allows the player to easily edit the lore.
     aliases: [epeditlore]  
+  giverenametoken:
+    description: Gives a Rename Token to a player. /giverenametoken [player] [amount]
+    aliases: [eptoken,eptokens]    
     
 permissions:
   epicrename.epicrename:
@@ -415,6 +418,13 @@ permissions:
     description: Placeholder permission. Use an actual bukkit material for this permission to work. Ex. epicrename.editlore.material.STONE
   epicrename.editlore.material.*:
     description: Allows all materials for the /editlore command.                 
+
+  epicrename.giverenametoken:
+    description: Allows the user to use the /giverenametoken command. (Recommended for admins only.)
+    default: op
+  epicrename.tokenrename.use:
+    description: Allows the user to actually use a Rename Token by dragging it onto an item.
+    default: true
   
   epicrename.rename.format.*:
     description: Allows all formatting codes for the /rename command.
@@ -568,6 +578,8 @@ permissions:
       epicrename.addloreline.*: true
       epicrename.editname.*: true
       epicrename.editlore.*: true
+      epicrename.giverenametoken: true
+      epicrename.tokenrename.use: true
       
   epicrename.poweruser:
     description: Provides the user permission for all materials and all formatting codes for all commands except for /import, /epicrename reload, or /epicrename debug. Does not provide bypass permissions. Use epicrename.bypass.* for that.
@@ -588,6 +600,7 @@ permissions:
       epicrename.addloreline.*: true
       epicrename.editname.*: true
       epicrename.editlore.*: true
+      epicrename.tokenrename.use: true
       
   epicrename.rename.*:
     description: Provides the user permission for all materials and all formatting codes for /rename. Also provides basic permission epicrename.rename.        

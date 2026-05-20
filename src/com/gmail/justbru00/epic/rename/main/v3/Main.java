@@ -23,6 +23,7 @@ import com.gmail.justbru00.epic.rename.commands.v3.EditLore;
 import com.gmail.justbru00.epic.rename.commands.v3.EditName;
 import com.gmail.justbru00.epic.rename.commands.v3.EpicRename;
 import com.gmail.justbru00.epic.rename.commands.v3.Export;
+import com.gmail.justbru00.epic.rename.commands.v3.GiveRenameToken;
 import com.gmail.justbru00.epic.rename.commands.v3.Glow;
 import com.gmail.justbru00.epic.rename.commands.v3.HideEnchantments;
 import com.gmail.justbru00.epic.rename.commands.v3.Import;
@@ -40,6 +41,8 @@ import com.gmail.justbru00.epic.rename.enums.v3.MCVersion;
 import com.gmail.justbru00.epic.rename.exploit_prevention.ExploitPreventionListener;
 import com.gmail.justbru00.epic.rename.listeners.v3.OnJoin;
 import com.gmail.justbru00.epic.rename.main.v3.bstats.BStats;
+import com.gmail.justbru00.epic.rename.rename_token.RenameTokenListener;
+import com.gmail.justbru00.epic.rename.rename_token.RenameTokenSessionManager;
 import com.gmail.justbru00.epic.rename.tabcompleters.EpicRenameTabCompleter;
 import com.gmail.justbru00.epic.rename.tabcompleters.ExportTabCompleter;
 import com.gmail.justbru00.epic.rename.tabcompleters.GenericNoArgsTabCompleter;
@@ -85,6 +88,12 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		// Cancel any active rename token sessions so players are notified.
+		try {
+			RenameTokenSessionManager.cancelAll("token_rename.cancelled");
+		} catch (Exception ignored) {
+			// Plugin already shutting down; best-effort.
+		}
 		Messager.msgConsole("&cPlugin Disabled.");
 		plugin = null; // Fix memory leak - maybe?
 	}
@@ -146,6 +155,7 @@ public class Main extends JavaPlugin {
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.registerEvents(new OnJoin(), this);
 		pm.registerEvents(new ExploitPreventionListener(), this);
+		pm.registerEvents(new RenameTokenListener(), this);
 
 		// Command Executors and Tab Completers
 		getCommand("rename").setExecutor(new Rename());
@@ -198,6 +208,9 @@ public class Main extends JavaPlugin {
 		
 		getCommand("editlore").setExecutor(new EditLore());
 		getCommand("editlore").setTabCompleter(new GenericNoArgsTabCompleter("editlore"));
+		
+		getCommand("giverenametoken").setExecutor(new GiveRenameToken());
+		getCommand("giverenametoken").setTabCompleter(new GenericTwoArgTabCompleter("giverenametoken", "<player>", "<amount>"));
 		
 		// Start bstats
 		BStats bstats = new BStats(this, BSTATS_PLUGIN_ID);
@@ -263,6 +276,8 @@ public class Main extends JavaPlugin {
 	}
 
 	public static void reloadConfigs() {
+		// Cancel any active token sessions because config might change behavior mid-flow.
+		RenameTokenSessionManager.cancelAll("token_rename.cancelled");
 		getInstance().reloadConfig();
 		messages.reload();
 		if (Main.getInstance().getConfig().getBoolean("economy.use")) {

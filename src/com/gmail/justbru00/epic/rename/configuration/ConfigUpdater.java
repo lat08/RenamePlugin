@@ -96,6 +96,45 @@ public class ConfigUpdater {
 		
 		updateConfigYmlBoolean("block_&x_color_codes", true);
 		updateConfigYmlBoolean("convert_legacy_glowing_to_modern_glowing", true);
+		
+		// Rename Token feature - config v14
+		updateConfigYmlBoolean("token_rename.enabled", true);
+		updateConfigYmlBoolean("token_rename.consume_on_use", true);
+		updateConfigYmlString("token_rename.item.material", "NAME_TAG");
+		updateConfigYmlString("token_rename.item.display_name", "&6&lRename Token");
+		updateConfigYmlStringList("token_rename.item.lore", "&7Drag onto an item to rename it.", "&7One-time use.");
+		updateConfigYmlStringList("token_rename.blacklist_materials", "BEDROCK", "BARRIER");
+		updateConfigYmlBoolean("token_rename.add_renamed_lore", true);
+		updateConfigYmlInteger("token_rename.session_timeout_seconds", 60);
+		updateConfigYmlString("token_rename.gui.title", "Confirm Rename");
+		updateConfigYmlInteger("token_rename.gui.size", 27);
+		updateConfigYmlInteger("token_rename.gui.target_slot", 13);
+		updateConfigYmlString("token_rename.gui.filler.material", "BLACK_STAINED_GLASS_PANE");
+		updateConfigYmlInteger("token_rename.gui.filler.custom_model_data", 0);
+		updateConfigYmlString("token_rename.gui.filler.display_name", " ");
+		updateConfigYmlInteger("token_rename.gui.info.slot", 4);
+		updateConfigYmlString("token_rename.gui.info.material", "PAPER");
+		updateConfigYmlInteger("token_rename.gui.info.custom_model_data", 0);
+		updateConfigYmlString("token_rename.gui.info.display_name", "&e&lDo you wish to proceed?");
+		updateConfigYmlStringList("token_rename.gui.info.lore");
+		updateConfigYmlInteger("token_rename.gui.confirm.slot", 15);
+		updateConfigYmlString("token_rename.gui.confirm.material", "LIME_CONCRETE");
+		updateConfigYmlInteger("token_rename.gui.confirm.custom_model_data", 0);
+		updateConfigYmlString("token_rename.gui.confirm.display_name", "&a&lYES");
+		updateConfigYmlStringList("token_rename.gui.confirm.lore", "&7Click to start renaming this item.");
+		updateConfigYmlInteger("token_rename.gui.cancel.slot", 11);
+		updateConfigYmlString("token_rename.gui.cancel.material", "RED_CONCRETE");
+		updateConfigYmlInteger("token_rename.gui.cancel.custom_model_data", 0);
+		updateConfigYmlString("token_rename.gui.cancel.display_name", "&c&lNO");
+		updateConfigYmlStringList("token_rename.gui.cancel.lore", "&7Click to cancel.");
+		updateConfigYmlBoolean("token_rename.gui.sounds.confirm.enabled", true);
+		updateConfigYmlString("token_rename.gui.sounds.confirm.name", "UI_BUTTON_CLICK");
+		updateConfigYmlInteger("token_rename.gui.sounds.confirm.volume", 1);
+		updateConfigYmlInteger("token_rename.gui.sounds.confirm.pitch", 2);
+		updateConfigYmlBoolean("token_rename.gui.sounds.cancel.enabled", true);
+		updateConfigYmlString("token_rename.gui.sounds.cancel.name", "UI_BUTTON_CLICK");
+		updateConfigYmlInteger("token_rename.gui.sounds.cancel.volume", 1);
+		updateConfigYmlInteger("token_rename.gui.sounds.cancel.pitch", 1);
 	}
 
 	public static void updateMessagesYml() {
@@ -437,6 +476,35 @@ public class ConfigUpdater {
 		updateMessagesYmlString("exploit_prevention.no_grindstone_with_glowing_items",
 				"&cYou cannot use a grindstone on a glowing item. Please remove glow from the item first with /removeglow.");
 		updateMessagesYmlString("exploit_prevention.no_anvil_with_glowing_items", "&cYou cannot use an anvil on a glowing item. Please remove glow from the item first with /removeglow.");
+		
+		// Rename Token feature - messages v19
+		updateMessagesYmlString("token_rename.feature_disabled", "&cThe rename token feature is disabled.");
+		updateMessagesYmlString("token_rename.no_permission", "&cSorry you don't have permission to use the rename token.");
+		updateMessagesYmlString("token_rename.cannot_rename_air", "&cYou cannot rename nothing.");
+		updateMessagesYmlString("token_rename.cannot_rename_token", "&cYou cannot rename a Rename Token itself.");
+		updateMessagesYmlString("token_rename.blacklist_target", "&cThis item type cannot be renamed with a token.");
+		updateMessagesYmlString("token_rename.enter_name", "&e(!) Please enter the name of the item in chat.");
+		updateMessagesYmlString("token_rename.enter_name_hint", "&7You can use /cancel to cancel the renaming of your item.");
+		updateMessagesYmlString("token_rename.cancelled", "&cItem renaming cancelled.");
+		updateMessagesYmlString("token_rename.confirm_preview", "&aAre you sure you wish to proceed with '{preview}&r&a'?");
+		updateMessagesYmlString("token_rename.confirm_preview_hint", "&aType yes if you wish to proceed, or anything else to cancel.");
+		updateMessagesYmlString("token_rename.success", "&aItem renamed successfully. 1 Rename Token consumed.");
+		updateMessagesYmlString("token_rename.success_no_consume", "&aItem renamed successfully.");
+		updateMessagesYmlString("token_rename.target_changed", "&cThe target item changed. Renaming aborted.");
+		updateMessagesYmlString("token_rename.given_self", "&aGave you {amount} Rename Token(s).");
+		updateMessagesYmlString("token_rename.given_other", "&aGave {player} {amount} Rename Token(s).");
+		updateMessagesYmlString("token_rename.no_token_command_perm", "&cYou don't have permission to use /giverenametoken.");
+		updateMessagesYmlString("token_rename.invalid_amount", "&cInvalid amount. Usage: /giverenametoken [player] [amount]");
+		updateMessagesYmlString("token_rename.player_not_found", "&cPlayer \"{player}\" was not found.");
+		updateMessagesYmlString("token_rename.inventory_full", "&cTarget player inventory is full. Drop some items first.");
+		updateMessagesYmlString("token_rename.gui_title", "Confirm Rename");
+		updateMessagesYmlString("token_rename.gui_yes", "&a&lYES");
+		updateMessagesYmlString("token_rename.gui_yes_lore", "&7Click to start renaming this item.");
+		updateMessagesYmlString("token_rename.gui_no", "&c&lNO");
+		updateMessagesYmlString("token_rename.gui_no_lore", "&7Click to cancel.");
+		updateMessagesYmlString("token_rename.in_progress", "&cYou can't do that. There is a rename in progress right now.");
+		updateMessagesYmlString("token_rename.renamed_lore", "(Edited with Rename Scroll)");
+		updateMessagesYmlString("token_rename.session_timeout", "&cRename session timed out. Token has been refunded.");
 	}
 
 	private static void updateMessagesYmlString(String path, String updatedValue) {
